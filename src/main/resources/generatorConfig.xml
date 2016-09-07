@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry
+            location="D:/soft/apache-maven-repository/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar"/>
+    <context id="my" targetRuntime="MyBatis3">
+    	<!-- 这里引入扩展插件 --> 
+    	<!-- 序列化JAVABEAN -->
+    	<plugin type="org.mybatis.generator.plugins.SerializablePlugin" /> 
+    	<!-- 重命名（只能修改类名） -->
+    	<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin" > 
+    		<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Selective" />
+    	</plugin>
+    	<!-- 所有JAVABEAN添加toString方法 -->
+    	<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />  
+    	<!-- 分页插件（仅生成接口类） -->
+    	<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+    	<!-- 自定义分页插件（仅MYSQL） -->
+    	<plugin type="com.newyeah.utils.mybatis.generator.PaginationPlugin" />
+    	<!-- 自定义插件（在所有Mapper前面加@Mapper） -->
+    	<plugin type="com.newyeah.utils.mybatis.generator.AnnotationsPlugin" >
+    		<property name="anotations" value="org.apache.ibatis.annotations.Mapper" />
+    	</plugin>
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.244.128:3306/test?characterEncoding=utf8" 
+                        userId="liuy"
+                        password="liuy"/>
+
+        <javaModelGenerator targetPackage="com.newyeah.entity"
+                            targetProject="D:\eclipseWorkspace\mybatis-generator-resources\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.newyeah.entity.xml"
+                         targetProject="D:\eclipseWorkspace\mybatis-generator-resources\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetPackage="com.newyeah.mapper"
+                             targetProject="D:\eclipseWorkspace\mybatis-generator-resources\src\main\java" 
+                             type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="users" 
+        		enableInsert="true"
+        		enableCountByExample="true" 
+        		enableUpdateByExample="true"  
+        		enableUpdateByPrimaryKey="true"
+            	enableDeleteByExample="true" 
+            	enableDeleteByPrimaryKey="true"
+            	enableSelectByExample="true" 
+            	enableSelectByPrimaryKey="true"/>
+
+    </context>
+</generatorConfiguration>
